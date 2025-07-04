@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: <votre-registry>/incident-frontend:latest
+          image: ghcr.io/ferdinand-sondeck/incident-frontend:latest
           ports:
             - containerPort: 80
           resources:

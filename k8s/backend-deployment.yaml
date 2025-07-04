@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: <votre-registry>/incident-backend:latest
+          image: ghcr.io/ferdinand-sondeck/incident-backend:latest
           ports:
             - containerPort: 3000
           env:
