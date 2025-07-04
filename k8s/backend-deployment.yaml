@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: incident-backend
+  labels:
+    app: incident-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: incident-backend
+  template:
+    metadata:
+      labels:
+        app: incident-backend
+    spec:
+      containers:
+        - name: backend
+          image: <votre-registry>/incident-backend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: incident-mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: jurassic
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: incident-mysql-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: incident-mysql-secret
+                  key: password
+            - name: API_TOKEN
+              value: JurassicSecretToken
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /api/incidents
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5

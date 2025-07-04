@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Jurassic Park - Incident Tracker API
+  version: "1.0"
+  description: API pour gérer les incidents à Jurassic Park
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/incidents:
+    get:
+      summary: Liste tous les incidents
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Filtrer par type d'incident
+        - in: query
+          name: urgence
+          schema:
+            type: string
+          description: Filtrer par niveau d'urgence
+      responses:
+        '200':
+          description: Liste des incidents
+    post:
+      summary: Crée un nouvel incident
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Incident'
+      responses:
+        '201':
+          description: Incident créé
+  /api/incidents/{id}:
+    get:
+      summary: Récupère un incident par ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Détails de l’incident
+        '404':
+          description: Incident non trouvé
+    put:
+      summary: Met à jour un incident
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Incident'
+      responses:
+        '200':
+          description: Incident mis à jour
+    delete:
+      summary: Supprime un incident
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Supprimé avec succès
+
+components:
+  schemas:
+    Incident:
+      type: object
+      required:
+        - titre
+        - description
+        - type
+        - zone
+        - urgence
+        - statut
+      properties:
+        titre:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [Evasion, Panne, Blessure]
+        zone:
+          type: string
+        urgence:
+          type: string
+          enum: [Basse, Moyenne, Haute]
+        statut:
+          type: string
+          enum: [En cours, Résolu]

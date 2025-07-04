@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incident Tracker – Jurassic Park</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🦖 Jurassic Park - Incident Tracker</h1>
+
+  <section id="filters">
+    <select id="filter-type">
+      <option value="">Type</option>
+      <option value="Evasion">Evasion</option>
+      <option value="Panne">Panne</option>
+      <option value="Blessure">Blessure</option>
+    </select>
+
+    <select id="filter-urgence">
+      <option value="">Urgence</option>
+      <option value="Basse">Basse</option>
+      <option value="Moyenne">Moyenne</option>
+      <option value="Haute">Haute</option>
+    </select>
+
+    <select id="filter-zone">
+      <option value="">Zone</option>
+      <option value="T-Rex Valley">T-Rex Valley</option>
+      <option value="Herbivore Plains">Herbivore Plains</option>
+      <option value="Velociraptor Enclosure">Velociraptor Enclosure</option>
+    </select>
+
+    <button onclick="loadIncidents()">🔄 Rechercher</button>
+  </section>
+
+  <section id="incident-list"></section>
+
+  <section id="new-incident">
+    <h2>➕ Déclarer un incident</h2>
+    <form onsubmit="createIncident(event)">
+      <input type="text" id="titre" placeholder="Titre" required />
+      <textarea id="description" placeholder="Description" required></textarea>
+      <select id="type" required>
+        <option value="">Type</option>
+        <option value="Evasion">Evasion</option>
+        <option value="Panne">Panne</option>
+        <option value="Blessure">Blessure</option>
+      </select>
+      <select id="zone" required>
+        <option value="">Zone</option>
+        <option value="T-Rex Valley">T-Rex Valley</option>
+        <option value="Herbivore Plains">Herbivore Plains</option>
+        <option value="Velociraptor Enclosure">Velociraptor Enclosure</option>
+      </select>
+      <select id="urgence" required>
+        <option value="">Urgence</option>
+        <option value="Basse">Basse</option>
+        <option value="Moyenne">Moyenne</option>
+        <option value="Haute">Haute</option>
+      </select>
+      <button type="submit">🚨 Ajouter</button>
+    </form>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
