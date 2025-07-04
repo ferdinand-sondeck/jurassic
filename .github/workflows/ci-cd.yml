@@ -28,7 +28,7 @@ jobs:
 
       - name: 🐳 Build image backend
         run: |
-          docker build -t $GHCR_IMAGE_BACKEND:latest ./backend
+          docker build -t $GHCR_IMAGE_BACKEND:latest .
 
       - name: 🐳 Build image frontend
         run: |
