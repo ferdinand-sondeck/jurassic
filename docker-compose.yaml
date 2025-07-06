@@ -8,21 +8,6 @@ services:
     depends_on:
       - api
 
-  api:
-    build:
-      context: .
-    container_name: jurassic-backend
-    ports:
-      - "3000:3000"
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: password
-      DB_NAME: jurassic
-      DB_PORT: 3306
-    depends_on:
-      - db
-
   db:
     image: mysql:8
     container_name: jurassic-db
@@ -33,6 +18,11 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:                # ← AJOUTE CETTE SECTION
+      test: ["CMD", "mysqladmin", "ping", "-p$password", "-h", "localhost"]
+      interval: 5s              # teste toutes les 5 s
+      retries: 10               # après 10 échecs, l’état devient unhealthy
+      start_period: 10s         # laisse 10 s de marge au démarrage
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -44,6 +34,21 @@ services:
       - "8081:80"
     depends_on:
       - db
+
+  api:
+    build: .
+    container_name: jurassic-backend
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db          # <-- ici !
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: jurassic
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   mysql_data:
