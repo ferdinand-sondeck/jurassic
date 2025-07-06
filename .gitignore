@@ -2,4 +2,8 @@ node_modules
 .env
 coverage
 logs
+<<<<<<< HEAD
 .DS_store
+=======
+.DS_STORE
+>>>>>>> c363ad42174fd92588a45de6ce02114f3a70e108

@@ -32,4 +32,8 @@ https://github.com/ferdinand-sondeck/jurassic
 
 3. Accédez à l'API Swagger :
 
+<<<<<<< HEAD
    http://localhost:8080/swagger
+=======
+   http://localhost:8080/swagger
+>>>>>>> c363ad42174fd92588a45de6ce02114f3a70e108
